@@ -1,9 +1,10 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useReducer, useState } from "react";
+import { reducer } from "./reducer";
 
 export const PostContext = createContext();
 
 const PostProvider = ({ children }) => {
-  const [posts, setPosts] = useState([
+  const [posts, dispatch] = useReducer(reducer, [
     {
       id: 111,
       title: "post 1",
@@ -18,16 +19,16 @@ const PostProvider = ({ children }) => {
     },
   ]);
 
-  const savePost = (post) => {
-    const newPost = {
-      id: Math.random(),
-      title: post.title,
-      content: post.content,
-    };
-    setPosts([...posts, newPost]);
-  };
+  //   const savePost = (post) => {
+  //     const newPost = {
+  //       id: Math.random(),
+  //       title: post.title,
+  //       content: post.content,
+  //     };
+  //     setPosts([...posts, newPost]);
+  //   };
   return (
-    <PostContext.Provider value={{ posts, savePost }}>
+    <PostContext.Provider value={{ posts, dispatch }}>
       {children}
     </PostContext.Provider>
   );

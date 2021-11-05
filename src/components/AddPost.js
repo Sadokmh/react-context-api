@@ -1,10 +1,12 @@
 import React, { useContext, useState } from "react";
 import { PostContext } from "../context/post.context";
+import { ADD_POST } from "../context/types";
 
 const AddPost = () => {
+  const { dispatch } = useContext(PostContext);
   const [post, setPost] = useState();
 
-  const { savePost } = useContext(PostContext);
+  //const { savePost } = useContext(PostContext);
 
   const handlePostChange = (event) => {
     setPost({
@@ -15,7 +17,7 @@ const AddPost = () => {
 
   const addNewPost = (event) => {
     event.preventDefault();
-    savePost(post);
+    dispatch({ type: ADD_POST, post });
   };
 
   return (
